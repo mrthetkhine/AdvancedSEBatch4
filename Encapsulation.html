@@ -1,0 +1,28 @@
+<html>
+    <script>
+        function push(stack,item)
+        {
+            stack.push(item);
+        }
+
+        let st1 = [];
+        push(st1,'One');
+        push(st1,'Two');
+        console.log(st1);
+
+        class Stack
+        {
+            items = [];
+            push(element)
+            {
+                this.items.push(element);
+            }
+            pop()
+            {
+                return this.items.pop();
+            }
+        }
+        let stack1 = new Stack();
+        stack1.push('One');
+    </script>
+</html>
