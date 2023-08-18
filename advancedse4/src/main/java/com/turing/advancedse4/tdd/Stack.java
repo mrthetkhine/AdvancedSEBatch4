@@ -2,6 +2,7 @@ package com.turing.advancedse4.tdd;
 
 public class Stack {
 
+	public static final String STACK_UNDERFLOW_MESSAGE = "Stack is underflow";
 	public static final String STACK_OVERFLOW_MESSAGE = "Cannot push element Stack is overflow";
 	public static final int STACK_SIZE = 10;
 	int top = 0;
@@ -16,6 +17,10 @@ public class Stack {
 	}
 
 	public int pop() {
+		if(top == 0)
+		{
+			throw new StackunderflowException(STACK_UNDERFLOW_MESSAGE);
+		}
 		return this.data[--this.top];
 	}
 	public int size()

@@ -96,4 +96,23 @@ public class StackTest {
 		}
 		return originalSize;
 	}
+	@Test
+	void whenPopLastElementShouldReturn()
+	{
+		stack.push(100);
+		
+		int originalSize = stack.size();
+		int element = stack.pop();
+		
+		assertEquals(100, element);
+		assertEquals(originalSize -1, stack.size());
+	}
+	@Test 
+	void stackShouldThrowUnderflowExceptionWhenPopFromEmpty()
+	{
+		StackunderflowException except = assertThrows(StackunderflowException.class, ()->{
+			stack.pop();
+		});
+		assertEquals(Stack.STACK_UNDERFLOW_MESSAGE, except.getMessage());
+	}
 }
