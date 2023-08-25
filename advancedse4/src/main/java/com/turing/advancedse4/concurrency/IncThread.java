@@ -1,8 +1,11 @@
 package com.turing.advancedse4.concurrency;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 class Data
 {
-	int value =0;
+	//int value =0;
+	AtomicInteger value = new AtomicInteger();
 }
 public class IncThread extends Thread {
 	
@@ -16,7 +19,14 @@ public class IncThread extends Thread {
 	public void run() {
 		for(int i=0;i<100000;i++)
 		{
-			this.data.value++;
+			/*
+			synchronized(this.data)
+			{
+				this.data.value++;
+			}
+			*/
+			this.data.value.addAndGet(1);
+			
 		}
 		
 	}
