@@ -1,6 +1,11 @@
 package com.turing.advancedse4.tdd;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assumptions.assumeTrue;
+
+import java.util.Arrays;
+import java.util.List;
 
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
@@ -75,4 +80,20 @@ private static final Logger log = (Logger) LoggerFactory.getLogger(ExplanatoryTe
 	static void done() {
 	    log.info("@AfterAll - executed after all test methods.");
 	}
+	@Test
+	void lambdaExpressions() {
+		/*
+	    List<Integer> numbers = Arrays.asList(1, 2, 3);
+	    assertTrue(numbers.stream()
+	      .mapToInt(Integer::intValue)
+	      .sum() > 5, () -> "Sum should be greater than 5");
+	      */
+		assertTrue(2 < 3, ()-> "2 should  be less than 3");
+	}
+	@Test
+	void trueAssumption() {
+	    assumeTrue(5 > 1);
+	    assertEquals(5 + 2, 7);
+	}
+
 }
