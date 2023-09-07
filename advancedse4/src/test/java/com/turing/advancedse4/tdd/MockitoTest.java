@@ -4,7 +4,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.atLeast;
+import static org.mockito.Mockito.atMost;
 import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoMoreInteractions;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,10 +17,13 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
+import org.mockito.InOrder;
 import org.mockito.Mock;
+import org.mockito.MockedStatic;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import com.turing.advancedse3.tdd.StaticUtil;
 import com.turing.advancedse4.solid.Car;
 import com.turing.advancedse4.solid.Engine;
 
@@ -113,5 +121,74 @@ public class MockitoTest {
 		
 		Mockito.verify(engine,atLeast(1)).start();
 		
+	}
+	@Test
+	public void testMethodCallNever()
+	{
+		Engine mock = Mockito.mock(Engine.class);
+		//mock.start();
+		Mockito.verify(mock,never()).start();
+	}
+	@Test
+	public void testMethodCallAtMost()
+	{
+		Engine engine = Mockito.mock(Engine.class);
+		
+		Car car = new Car(engine);
+		car.start();
+		//car.start();
+		
+		Mockito.verify(engine,atMost(1)).start();
+	}
+	@Test 
+	public void testMethodCallExactTime()
+	{
+		Engine engine = Mockito.mock(Engine.class);
+		
+		engine.start();
+		engine.start();
+		
+		Mockito.verify(engine,times(2)).start();
+	}
+	@Test 
+	public void testNoInteraction()
+	{
+		Engine engine = Mockito.mock(Engine.class);
+		//engine.start();
+		Mockito.verifyNoMoreInteractions(engine);
+	}
+	@Test
+	public void testVerifyUnexpectedInteraction()
+	{
+		List<String> mockedList = Mockito.mock(ArrayList.class);
+		
+		mockedList.size();
+		//mockedList.clear();
+		
+		verify(mockedList).size();
+		verifyNoMoreInteractions(mockedList);
+	}
+	@Test
+	public void testVerifyOrderOfInteraction()
+	{
+		List<String> mockedList = Mockito.mock(ArrayList.class);
+		mockedList.size();
+		mockedList.add("a parameter");
+		mockedList.clear();
+
+		InOrder inOrder = Mockito.inOrder(mockedList);
+		inOrder.verify(mockedList).size();
+		inOrder.verify(mockedList).add("a parameter");
+		inOrder.verify(mockedList).clear();
+	}
+	@Test
+	public void testMockStaticMethod() {
+	    assertEquals("data",StaticUtil.getData());
+	    
+	    try (MockedStatic<StaticUtil> utilities = Mockito.mockStatic(StaticUtil.class)) {
+	        utilities.when(StaticUtil::getData).thenReturn("Eugen");
+	        assertEquals("Eugen",StaticUtil.getData());
+	    }
+
 	}
 }

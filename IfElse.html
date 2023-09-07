@@ -1,0 +1,18 @@
+<html>
+    <script>
+        function drawCircle()
+        {
+            console.log('DrawCircle');
+        }
+        function drawRectangle()
+        {
+            console.log('drawRectangle');
+        }
+
+        let method = drawCircle;
+        method();
+
+        method = drawRectangle;
+        method();
+    </script>
+</html>
