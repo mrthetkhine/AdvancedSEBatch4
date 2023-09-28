@@ -13,7 +13,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 public class CarTest extends Engine{
 
 	boolean engineStarted = false;
-	void start()
+	public void start()
 	{
 		System.out.println("MOCK ENGINE START");
 		this.engineStarted = true;

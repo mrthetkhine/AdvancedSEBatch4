@@ -1,0 +1,47 @@
+<html>
+    <div>
+        <h1 id="divHello">Hello</h1>
+    </div>
+    <script>
+        document.getElementById('divHello').addEventListener('click',()=>{
+            console.log('Handler 1');
+        });
+        document.getElementById('divHello').addEventListener('click',()=>{
+            console.log('Handler 2');
+        });
+        document.getElementById('divHello').addEventListener('click',()=>{
+            console.log('Handler 3');
+        });
+
+        let event ={
+            listeners:[],
+            addEventListener(func)
+            {
+                this.listeners.push(func);
+            },
+            trigger($event)
+            {
+                for(let func of this.listeners)
+                {
+                    func($event);
+                }
+            },
+            removeEventListener(handler)
+            {
+                this.listeners = this.listeners.filter(fun=>fun!=handler);
+            }
+        }
+        const handler1 = ($event )=>{
+            console.log('Handler 1 ',$event);
+        }
+        const handler2 = ($event )=>{
+            console.log('Handler 2 ',$event);
+        }
+        event.addEventListener(handler1);
+        event.addEventListener(handler2);
+        event.trigger({name:'click'});
+
+        event.removeEventListener(handler1);
+        event.trigger({name:'click'});
+    </script>
+</html>

@@ -23,7 +23,6 @@ import org.mockito.MockedStatic;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import com.turing.advancedse3.tdd.StaticUtil;
 import com.turing.advancedse4.solid.Car;
 import com.turing.advancedse4.solid.Engine;
 
