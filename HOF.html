@@ -1,0 +1,24 @@
+<html>
+    <script>
+        function hello()
+        {
+            console.log('hello');
+        }
+        function hi()
+        {
+            console.log('Hi');
+        }
+        function invoker(action)
+        {
+            action();
+        }
+        //invoker(hello);
+        //invoker(hi);
+
+        let fun = hello;
+        fun();
+        
+        fun = hi;
+        fun();
+    </script>        
+</html>
