@@ -1,0 +1,30 @@
+<html>
+    <script>
+        function hello()
+        {
+            console.log('Hello');
+        }
+        //Rule 1
+        let fun  = hello;
+        fun();
+
+        //Rule 2
+        //function can be passed as parameter
+        function higher(fun)
+        {
+            console.log('Higher');
+            fun();
+        }
+        higher(hello);
+
+        //Rule 3,function can return from function
+        function getFun()
+        {
+            return function()
+            {
+                console.log('Get Fun');
+            }
+        }
+        getFun()();
+    </script>
+</html>
