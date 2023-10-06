@@ -1,0 +1,42 @@
+<html>
+    <script>
+        /*
+        function once(fn)
+        {
+            let done = false;
+            return function(...args)
+            {
+               return !done?(done=true,fn(...args)):undefined;
+            }
+        }*/
+        let once = fn =>{
+            let done = false;
+            return (...args)=>
+                            !done?(done=true,fn(...args)):undefined;
+        };
+        let onceAndAfter = (f,g)=>{
+            let done = false;
+            return (...args)=>
+                            !done?(done=true,f(...args)):g(...args);
+        };
+        function payment(amount)
+        {
+            console.log('Payment ',amount );
+        }
+        //payment();
+        //payment();
+
+        function linkage()
+        {
+            console.log('Linkage');
+        }
+       
+        payment = once(payment);
+        payment(100);
+        payment(200);
+
+        linkage = onceAndAfter(linkage,()=>console.log('Not for first time'));
+        linkage();
+        linkage();
+    </script>
+</html>

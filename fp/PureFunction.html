@@ -1,0 +1,18 @@
+<html>
+    <script>
+        let i = 0;
+
+        function incImpure()
+        {
+            return i++;
+        }
+        function pushImpure(items,element)
+        {
+            items.push(element);
+        }
+        function pushPure(items,element)
+        {
+            return [...items,element];
+        }
+    </script>
+</html>

@@ -1,0 +1,29 @@
+<html>
+    <script>
+        function outer()
+        {
+            let x = 0;
+            return function inner()
+            {
+                return x++;
+            }
+        }
+        let next = outer();
+        console.log('Next ',next());
+        console.log('Next ',next());
+        console.log('Next ',next());
+
+        let stack = {
+            items:[],
+            push(element)
+            {
+                this.items.push(element);
+            }
+        }
+        stack.push('One');
+        stack.push('Two');
+        console.log('Stack.items ',stack.items);
+        stack.items = [];
+        console.log('Stack.items ',stack.items);
+    </script>
+</html>
