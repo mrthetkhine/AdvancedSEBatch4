@@ -1,0 +1,41 @@
+<html>
+    <script>
+       let nums = [1,1,1,2,2,2,2,3], k = 2;
+       //1-3, 2-2,3-1 
+       //output [1,2]
+
+       /*
+       '1':3
+       '2':2,
+       '3':1
+       */
+       let frequencyCounts = {
+
+       };
+       for(const item of nums)//{1:2}
+       {
+            if(frequencyCounts[item])
+            {
+                frequencyCounts[item]++;
+            }
+            else
+            {
+                frequencyCounts[item] = 1;//{1:1}
+            }
+       }
+       console.log('Frequency counts ',frequencyCounts);
+       //FrequencyArr
+       let frequencyArr = Object.entries(frequencyCounts);
+       console.log('Frequency Arr ',frequencyArr);
+
+       frequencyArr.sort((a,b)=>b[1]-a[1]);
+       console.log('FrequencyArr ',frequencyArr);
+
+       let topKArr = [];
+       for(const item of frequencyArr)
+       {
+        topKArr.push(item[0]);
+       }
+       console.log('TopKAr ',topKArr);
+    </script>
+</html>

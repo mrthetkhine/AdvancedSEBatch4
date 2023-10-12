@@ -1,0 +1,40 @@
+<html>
+    <script>
+       let nums = [1,1,1,2,2,2,2,3], k = 2;
+       //1-3, 2-2,3-1 
+       //output [1,2]
+
+       /*
+       '1':3
+       '2':2,
+       '3':1
+       *//*
+       let frequencyGroup = nums.reduce((group,element)=>{
+            
+            if(group[element])
+            {
+                group[element]++;
+            }
+            else
+            {
+                group[element] = 1;
+            }
+            return group;
+            
+           
+       },{});
+       */
+       let frequencyGroup = nums.reduce((group,element)=>
+                group[element]? 
+                    (group[element]++,group): 
+                    (group[element]=1,group),{})
+       
+       console.log('Frequency group ',frequencyGroup);
+       let freqArr = Object.entries(frequencyGroup);
+       console.log('FrequencyArr ',freqArr);
+       
+       freqArr.sort( (a,b)=>b[1]-a[1]);
+       let topKArr = freqArr.map(ele=>ele[0]);
+       console.log('topKArr ',topKArr);
+    </script>
+</html>

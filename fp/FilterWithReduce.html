@@ -1,0 +1,50 @@
+<html>
+    <script>
+        let objArr = [
+            {
+                name : 'TK',
+                gender: 'Male',
+                age : 39,
+            },
+            {
+                name : 'Hla Hla',
+                gender: 'Female',
+                age : 18,
+            },
+            {
+                name : 'Mya Maung',
+                gender: 'Male',
+                age : 20,
+            },
+            {
+                name : 'Aung Naing',
+                gender: 'Male',
+                age : 21,
+            },
+            {
+                name : 'Khin Khin',
+                gender: 'Female',
+                age : 20,
+            },
+
+        ];
+        let names = objArr.map(obj=>obj.name);
+        console.log('Map ',names);
+
+        objArr.map((item,index,arr)=>{
+            console.log('Item ',item, ' Index ',index, ' Arra ',arr);
+            return item;
+        })
+
+        const isMale = (obj)=> obj.gender == 'Male';
+        const allMale  = objArr.reduce((result,b)=> isMale(b)
+                                                            ?[...result,b]
+                                                            :result ,[]);
+        console.log('Allmale ',allMale);
+        const allMaleName = allMale.reduce( (result,b)=> {
+            console.log('Result ',result, ' B ',b);
+            return [...result,b.name];
+        },[]);
+        console.log('Allmale name',allMaleName);
+    </script>
+</html>

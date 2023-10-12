@@ -1,0 +1,28 @@
+<html>
+    <script>
+        let arr = [1,3,-10,12];
+        const eleGt10 = (ele)=> ele > 10;
+
+        let element = arr.find(eleGt10);
+        console.log('Element ',element);
+
+        let index = arr.findIndex(eleGt10);
+        console.log('Index ',index);
+
+        element = arr.reduce((x, y) => (x === undefined && eleGt10(y) ? y : x), undefined);
+        console.log('Element ',element);
+
+        const gtZero =(ele)=>ele >0;
+        const allZero = arr.every(gtZero);
+        console.log('Allzero ',allZero);
+
+        const someZero = arr.some(gtZero);
+        console.log('Somezero ',someZero);
+
+        String.prototype.toString = function()
+        {
+            return 'WTF';
+        }
+        console.log('Hello'.toString()+1);
+    </script>
+</html>

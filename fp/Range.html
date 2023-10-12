@@ -1,0 +1,13 @@
+<html>
+    <script>
+        //[start,stop-1]
+        const range = (start, stop) =>
+                        new Array(stop - start).fill(0).map((v, i) => start + i);
+        console.log(range(1,5));
+
+        //5! = 5*4*3*2*1
+        const factorialByRange = n => range(1, n + 1).reduce((x, y) => x * y, 1);
+        console.log('5! ',factorialByRange(5));
+    </script>
+</html>
+

@@ -1,0 +1,18 @@
+<html>
+    <script>
+        Array.prototype.ourMap = function(transformer)
+        {
+            let result = [];
+            for(let i=0;i< this.length;i++)
+            {
+                result.push(transformer(this[i]));
+            }
+           
+            return result;
+        }
+        let arr = [1,2,3];
+        let results = arr.ourMap((item)=>item*2);
+        console.log('Results ',results);
+    </script>
+</html>
+
