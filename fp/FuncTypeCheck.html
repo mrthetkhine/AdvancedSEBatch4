@@ -1,0 +1,25 @@
+<html>
+    <script>
+        function display(msg1,msg2)
+        {
+            console.log('Argument ',arguments.length);
+            console.log('Msg1 ',msg1, " Msg2 ",msg2);
+        }
+        console.log('Display.length ',display.length);
+        //display('hello');
+
+        function checkArg(fn)
+        {
+            return function()
+            {
+                if(arguments.length < fn.length)
+                {
+                    console.warn('Fn ',fn.name, ' expected ',fn.length,' arguments but got',arguments.length);
+                }
+                return fn(...arguments);
+            }
+        }
+        const typeCheckDisplay = checkArg(display);
+        typeCheckDisplay('hello');
+        </script>
+</html>

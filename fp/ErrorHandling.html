@@ -1,0 +1,38 @@
+<html>
+    <script>
+        const toUpper = (msg)=> msg.toUpperCase();
+        const appendHi = (msg) => 'Hi '+msg;
+
+        /*
+        function toUpper(msg)
+        {
+            if(msg ==== undefined || msg=== null)
+            {
+                return '';
+            }
+            else
+            {
+                return msg.toUpperCase();
+            }
+        }
+    
+        */
+        function validOrElse(fn,defaultValue)
+        {
+            return function(msg)
+            {
+                if(msg === undefined || msg=== null)
+                {
+                    return defaultValue;
+                }
+                else
+                {
+                    return fn(msg);
+                }
+            }
+        }
+        const upper = validOrElse(toUpper,'');
+        let str = 'Hello';
+        console.log('Result ',upper(str));
+    </script>
+</html>

@@ -1,0 +1,29 @@
+<html>
+    <script>
+        function hello()
+        {
+            console.log(new Date(), 'hello was called');
+            console.log('Hello');
+
+        }
+        function greet(msg)
+        {
+            console.log('Greet ',msg);
+            return 'Hi';
+        }
+        //hello();
+        function log(fn)
+        {
+            console.log(new Date(), fn.name ,' was called');
+            return function()
+            {
+                console.log('Arguments ',arguments);
+                let ret = fn(...arguments);//a,b,c
+                console.log('Ret ',ret);
+                return ret;
+            }
+        }
+        let logGreet = log(greet);
+        logGreet('How are you doing');
+    </script>
+</html>

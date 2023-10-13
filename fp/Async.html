@@ -1,0 +1,21 @@
+<html>
+    <script>
+        function computeLater()
+        {
+            setTimeout(()=>{
+                console.log('Now computed');
+                throw new Error('We got error');
+            },3000);
+        }
+        try
+        {
+            computeLater();
+        }
+        catch(e)
+        {
+            console.log("Catch statment ",e);
+        }
+        
+        console.log('Next line');
+    </script>
+</html>

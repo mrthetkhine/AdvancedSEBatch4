@@ -1,0 +1,12 @@
+<html>
+    <script>
+         const toUpper = (msg)=> msg.toUpperCase();
+        const appendHi = (msg) => 'Hi '+msg;
+
+        let str = null;
+        Promise.reject(str)
+                .then(toUpper)
+                .then(appendHi) 
+                .then(value=>console.log(value),err=>console.log('Error ',err)) 
+    </script>
+</html>

@@ -1,0 +1,22 @@
+<html>
+    <script>
+        let arr = [1,2,3,4,5];
+
+        const isEven = (ele)=> ele % 2 == 0 ;
+        
+        let evenList = arr.filter(isEven);
+        console.log('Evenlist ',evenList);
+
+        function not(predicateFn)
+        {
+            return function(value)
+            {
+                return !predicateFn(value);
+            }
+        }
+        const isOdd = not(isEven);
+        let oddList = arr.filter(isOdd);
+
+        console.log('OddList ',oddList);
+    </script>
+</html>

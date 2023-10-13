@@ -1,0 +1,67 @@
+<html>
+    <script>
+        //4! = 4 * 3 * 2 * 1;
+        /*
+        function factorial(n)
+        {
+            if(factorial.cache[n])
+            {
+                return factorial.cache[n];
+            }
+            else
+            {
+                console.log('Compute factorial ',n);
+                let result = 1;
+                for(let i=1;i<=n;i++)
+                {
+                    result *= i;
+                }
+                factorial.cache[n] = result;
+                return result;
+            }
+            
+        }
+        factorial.cache = {};
+        */ 
+
+        function factorial(n)
+        {
+            console.log('Compute factorial ',n);
+            let result = 1;
+            for(let i=1;i<=n;i++)
+            {
+                result *= i;
+            }
+            return result;
+        }
+        function summation(n)
+        {
+            console.log('Compute summation ',n);
+            let result = 0;
+            for(let i=1;i<=n;i++)
+            {
+                result += i;
+            }
+            return result;
+        }
+        function memoize(fn)
+        {
+            let cache = {};
+            return function(n)
+            {
+                if(!cache[n])
+                {
+                    cache[n] = fn(n);
+                }
+                return cache[n];
+            }
+        }
+        let fact = memoize(factorial);
+        console.log('Factorial 4 ',fact(4));
+        console.log('Factorial 4 ',fact(4));
+
+        let sum = memoize(summation);
+        console.log('Summation 4 ',sum(4));
+        console.log('Summation 4 ',sum(4));
+    </script>
+</html>

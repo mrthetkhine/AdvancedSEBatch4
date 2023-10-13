@@ -1,0 +1,22 @@
+<html>
+    <script>
+        let strArr = ['1','2','3','4','5'];
+        console.log('parseInt ',parseInt(strArr[0]));
+
+        //const unary = fn => (...args) => fn(args[0]);
+        function unary(fn)
+        {
+            return function(...args)
+            {
+                return fn(args[0]);
+            }
+        }
+        let nums = strArr.map(unary(parseInt));
+        console.log('Nums ',nums);// parseInt(1,0)
+        //parseInt('2',1)
+        //map -> (value,index,array)
+        //parseInt => (data,suffix) , 
+        console.log('ParseInt ("2",1)', parseInt('2',1));
+       
+    </script>
+</html>
