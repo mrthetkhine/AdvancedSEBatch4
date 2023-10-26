@@ -1,0 +1,27 @@
+<html>
+    <script>
+       
+        const addOne = (x)=> x+1;
+        const double = (x) => x *2;
+        function pipe(...fns)
+        {
+            return function(msg)
+            {
+                return fns.reduce((input,fun)=> fun(input),msg);
+            }
+        }
+
+        const curry = fn =>
+            fn.length === 0 ? fn() : p => curry(fn.bind(null, p));
+
+        const add = (x,y)=> x+y;
+        console.log('Add ',add.length);    
+        console.log('Add ',curry(add)(1)(2));
+        
+        const tap = fn => x => (fn(x), x);
+        const log = tap(console.log);
+        let fun = pipe(addOne,log,curry(add)(5), log,double,log,console.log);
+        fun(20);
+        
+    </script>
+</html>

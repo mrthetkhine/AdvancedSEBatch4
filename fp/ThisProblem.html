@@ -1,0 +1,22 @@
+<html>
+    <script>
+       let obj ={
+        name : "Tk",
+        display(message)
+        {
+            console.log('Name ',this.name,' message ',message);
+        }
+       }
+
+       let method = obj.display;
+       method.call(obj,'hello');
+       let obj2 = {
+        name :'Another'
+       };
+       method.call(obj2,'hello');
+       method.apply(obj2,['hello']);
+
+       let method2 = method.bind(obj2);
+       method2('hello');
+    </script>
+</html>

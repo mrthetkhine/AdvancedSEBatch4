@@ -1,0 +1,26 @@
+<html>
+    <script>
+        const appendHi = msg => msg + ' hi';
+        const toUpper = msg => msg.toUpperCase();
+        const length = msg => msg.length;
+
+        //input=> appendHi=> toUpper=>
+        function appendHiAndUpperCase(msg)
+        {
+            return toUpper(appendHi(msg));
+        }
+        console.log('AppendHi And Uppercase ',appendHiAndUpperCase('hello'));
+
+        //toUpper,appendHi
+        function pipe(f,g)
+        {
+            return function(msg)
+            {
+                return g(f(msg));
+            }
+        }
+        let version1 = pipe(toUpper,appendHi);
+        console.log('Version1 ',version1('hello'));
+       
+    </script>
+</html>

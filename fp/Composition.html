@@ -1,0 +1,31 @@
+<html>
+    <script>
+        const appendHi = msg => msg + ' hi';
+        const toUpper = msg => msg.toUpperCase();
+        const length = msg => msg.length;
+
+        //input=> appendHi=> toUpper=>
+        function appendHiAndUpperCase(msg)
+        {
+            return toUpper(appendHi(msg));
+        }
+        console.log('AppendHi And Uppercase ',appendHiAndUpperCase('hello'));
+
+        //toUpper,appendHi
+        function compose(f,g)
+        {
+            return function(msg)
+            {
+                return f(g(msg));
+            }
+        }
+        let version1 = compose(toUpper,appendHi);
+        version1 = compose(length,version1);
+        console.log('Version1 ',version1('hello'));
+        let appendHiAndGetLength = compose(length,appendHi);
+        console.log('appendHiAndGetLength ',appendHiAndGetLength('hello'));
+
+        let problem = compose(toUpper,length);
+        console.log('Problem ',problem('hi'));
+    </script>
+</html>

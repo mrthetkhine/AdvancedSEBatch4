@@ -1,0 +1,35 @@
+<html>
+    <script>
+        const appendHi = msg => msg + ' hi';
+        const toUpper = msg => msg.toUpperCase();
+        const length = msg => msg.length;
+
+        //input=> appendHi=> toUpper=>
+        function appendHiAndUpperCase(msg)
+        {
+            return toUpper(appendHi(msg));
+        }
+        console.log('AppendHi And Uppercase ',appendHiAndUpperCase('hello'));
+
+        //toUpper,appendHi
+        function pipe(...fns)
+        {
+            return function(msg)
+            {
+                return fns.reduce((input,fun)=> fun(input),msg);
+            }
+        }
+        function compose(...fns)
+        {
+            return function(msg)
+            {
+                return fns.reduceRight((input,fun)=> fun(input),msg);
+            }
+        }
+        let newFun = pipe(toUpper,appendHi,length);
+        console.log('NewFun ',newFun('hello'));
+
+        newFun  = compose(toUpper,appendHi);
+        console.log('NewFun ',newFun('hello'));
+    </script>
+</html>
