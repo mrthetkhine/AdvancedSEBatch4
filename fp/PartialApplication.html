@@ -1,0 +1,24 @@
+<html>
+    <script>
+        const curry = fn =>
+            fn.length === 0 ? fn() : p => curry(fn.bind(null, p));
+
+        
+        function pipe(...fns)
+        {
+            return function(msg)
+            {
+                return fns.reduce((input,fun)=> fun(input),msg);
+            }
+        }
+        function api(url,method)
+        {
+            console.log('Url ',url, ' Method ', method)
+        }
+        let curriedApi = curry(api);
+        let someApi = curriedApi('http://www.google.com');
+        someApi('GET');
+        someApi('POST');
+        
+    </script>
+</html>

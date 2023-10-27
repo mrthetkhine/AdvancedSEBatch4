@@ -1,0 +1,8 @@
+<html>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ramda/0.28.0/ramda.js"></script>
+    <script>
+        Promise.reject(3)
+               .then(x=>x+1,err=>0)
+               .then(console.log);
+    </script>
+</html>

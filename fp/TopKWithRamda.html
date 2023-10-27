@@ -1,0 +1,38 @@
+<html>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ramda/0.28.0/ramda.js"></script>
+    <script>
+        let nums = [1,1,1,2,2,2,2,3], k = 2;
+       //1-3, 2-4,3-1 
+       //output [2,1]
+       /*
+       let group = R.countBy(R.identity)(nums);
+       console.log('Group ',group);
+       let groupArr = R.toPairs(group);
+       console.log('group Arr ',groupArr);
+
+      
+       const sortedList = R.sort(comparator)(groupArr);
+       console.log('SortedList ',sortedList);
+
+       let list = R.map(R.head)(sortedList);
+       let topK = R.take(2)(list);
+
+       console.log('Topk ',topK);
+       */
+       const print = x => console.log('x is ' + x);
+       const log = R.tap(console.log);
+       const comparator =  (a,b)=>b[1]-a[1];
+       const topK = R.pipe(
+            R.countBy(R.identity),
+            log,
+            R.toPairs,
+            log,
+            R.sort(comparator),
+            log,
+            R.map(R.head),
+            log,
+            R.take(2)
+      );
+      console.log('TopK ',topK(nums));
+    </script>
+</html>

@@ -1,0 +1,33 @@
+<html>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ramda/0.28.0/ramda.js"></script>
+    <script>
+        function factorial(n)
+        {
+            let result = 1;
+            for(let i=1;i<=n;i++)
+            {
+                result *= i;
+            }
+            return result;
+        }
+        console.log('Facto(3) ',factorial(3));
+        //[3,2,1]
+        console.log('R.range ',R.range(1,4));
+
+        const fpFact = num => R.reduce(R.multiply,1, R.range(1,num+1));
+        console.log('fpFact ',fpFact(3));
+
+        /*
+            pipe
+            num=>
+                R.inc
+                R.range(1)
+        */
+       const fpFact2 = num=> R.pipe(
+            R.inc,
+            R.range(1),
+            R.reduce(R.multiply,1)
+       )(num);
+       console.log('fpFact2 ',fpFact2(3));
+    </script>
+</html>
