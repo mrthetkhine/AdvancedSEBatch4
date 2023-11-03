@@ -1,0 +1,16 @@
+<html>
+    <script>
+        function asyncFunc(callback)
+        {
+            setTimeout(()=>{
+                console.log('Operation done');
+                return callback(1400);
+            },3000);
+        }
+        const callback = (data)=>{
+            console.log('Data returned from operation =>',data);
+        }
+        asyncFunc(callback);
+        console.log('End');
+    </script> 
+</html>

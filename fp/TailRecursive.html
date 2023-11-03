@@ -1,0 +1,17 @@
+<html>
+    <script>
+        function factorial(n) {
+            return facRec(n, 1);
+        }
+        function facRec(x, acc) {
+            if (x <= 1) {
+                return acc;
+            } else {
+                return facRec(x-1, x*acc); // (A)
+            }
+        }
+        let acc = 0;
+        facRec(14990,acc);
+        console.log('Acc ',acc);
+    </script> 
+</html>

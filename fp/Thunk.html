@@ -1,0 +1,16 @@
+<html>
+    <script>
+        const trampoline = (fn) => {
+            while (typeof fn === 'function') {
+                fn = fn(); 
+            }
+            return fn; 
+        };
+        const sumAll = n => (n == 0 ? 0 : n + sumAll(n - 1));
+        //console.log('SumAll ',sumAll(14990));
+
+        const sumAllC = (n, cont) =>
+                    n === 0 ? cont(0) : sumAllC(n - 1, v => cont(v + n));
+        sumAllC(1400,console.log);
+    </script> 
+</html>
