@@ -20,5 +20,12 @@
 
         obj.arr.push(300);
         console.log('Obj2 ',obj2);
+
+        let str = JSON.stringify(obj);
+        let obj3 = JSON.parse(str);//deep clone
+
+        obj3.arr.push(200);
+        console.log('Obj ',obj);
+        console.log('Obj3 ',obj3);
     </script> 
 </html>

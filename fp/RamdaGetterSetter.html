@@ -1,0 +1,22 @@
+<html>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ramda/0.28.0/ramda.js"></script>
+    <script>
+      const obj ={
+            name : 'TK',
+            age : 39,
+            arr : [1,2,3],
+            
+            address : {
+                city: "ygn",
+                township:"bahan"
+            },
+            
+            obj_age: 100,
+        }
+        console.log('R.prop ', R.prop('age')(obj));
+        console.log('R.propOr ',R.propOr('age','obj_age')(obj));
+
+        console.log('Path ',R.path(['address','city'],obj));
+        console.log('Obj.address ',obj.address === (R.prop('address')(obj)) )
+    </script>
+</html>

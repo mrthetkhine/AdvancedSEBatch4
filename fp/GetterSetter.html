@@ -1,0 +1,40 @@
+<html>
+    <script>
+   
+        const obj ={
+            name : 'TK',
+            age : 39,
+            arr : [1,2,3],
+            address : {
+                city: "ygn",
+                township:"bahan"
+            }
+            
+        }
+        const getField = attr => obj => obj[attr];
+        const getAge = getField('age');
+
+        let another ={
+            age : 'Something'
+        }
+        console.log('GetAge ',getAge(obj));
+        console.log('GetAge another',getAge(another));
+        //console.log('Address ',obj.address.city);
+
+        const deepCopy = (obj)=>{
+            let str = JSON.stringify(obj);
+            return JSON.parse(str);
+        }
+        //['address','city']
+        const getByPath = (arr, obj) => {
+            if (arr[0] in obj) {
+                return arr.length > 1
+                    ? getByPath(arr.slice(1), obj[arr[0]])
+                    : deepCopy(obj[arr[0]]);
+            } else {
+            return undefined;
+        } };
+        console.log('Path ',getByPath(['address','city'],obj));
+        console.log('Obj.address.city ',obj?.address?.city);
+    </script> 
+</html>

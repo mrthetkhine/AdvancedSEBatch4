@@ -1,0 +1,24 @@
+<html>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ramda/0.28.0/ramda.js"></script>
+    <script>
+        const obj ={
+            name : 'TK',
+            age : 39,
+            arr : [1,2,3],
+            /*
+            address : {
+                city: "ygn",
+                township:"bahan"
+            },
+            */
+            obj_age: 100,
+        }
+        let obj2 = R.assoc('age',40,obj);
+
+        console.log('Obj ',obj);
+        console.log('Obj2 ',obj2 );
+        console.log('Obj === obj2 ',obj === obj2);
+        let obj3 = R.assocPath(['address','city'],'mdy',obj);
+        console.log('Obj3 ',obj3 );
+    </script>
+</html>

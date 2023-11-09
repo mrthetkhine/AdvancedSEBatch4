@@ -1,0 +1,45 @@
+<html>
+    <script>
+   
+        const obj = {
+                name: 'TK',
+                age: 39,
+                arr: [1, 2, 3],
+                /*
+                address: {
+                    city: "ygn",
+                    township: "bahan"
+                }*/
+
+            }
+            //obj.address.city = "mdy";
+            console.log('Done');
+            
+            const setByPath = (arr, value, obj) => {
+                if (!(arr[0] in obj)) {
+                    obj[arr[0]] =
+                        arr.length === 1 ? null : Number.isInteger(arr[1]) ? [] : {};
+                }
+                if (arr.length > 1) {
+                    return setByPath(arr.slice(1), value, obj[arr[0]]);
+                } else {
+                    obj[arr[0]] = value;
+                    return obj;
+                }
+            };
+            const deepCopy=obj=>{
+                return JSON.parse(JSON.stringify(obj));
+            }
+            const updateObject = (arr, obj, value) => {
+                let newObj = deepCopy(obj);
+                setByPath(arr, value, newObj);
+                return Object.freeze(newObj);
+            };
+            setByPath(['address','city'],'ygn',obj);
+            console.log('Obj ',obj);
+
+            let obj2 = updateObject(['address','city'],obj,'mdy');
+            console.log('Obj ',obj);
+            console.log('Obj2 ',obj2);
+    </script> 
+</html>

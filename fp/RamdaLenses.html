@@ -1,0 +1,36 @@
+<html>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ramda/0.28.0/ramda.js"></script>
+    <script>
+        const person = {
+            name: 'Randy',
+            socialMedia: {
+                github: 'randycoulman',
+                twitter: '@randycoulman'
+                }
+        }
+        
+        const nameLens = R.lens(R.prop('name'), R.assoc('name'));
+        const twitterLens = R.lens(
+            R.path(['socialMedia', 'twitter']),
+            R.assocPath(['socialMedia', 'twitter'])
+        );
+        console.log('R.view ',R.view(nameLens)(person));
+        console.log('R.view ',R.view(twitterLens)(person));
+        
+        let person2 = R.set(twitterLens,'user@twitter',person);
+        console.log('person ',person);
+        console.log('person2 ',person2);
+
+        console.log('R.over ',R.over(nameLens,R.toUpper,person));
+
+        const headLens = R.lensIndex(0);
+
+        console.log('lensIndex view', R.view(headLens, ['a', 'b', 'c']));  
+
+        const twitterLens2 = R.lensPath(['socialMedia','twitter']);
+        console.log('R.view ',R.view(twitterLens2)(person));
+
+        const nameLens2 = R.lensProp('name');
+        console.log('R.view name ',R.view(nameLens2)(person));
+    </script>
+</html>

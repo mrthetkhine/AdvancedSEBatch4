@@ -1,0 +1,26 @@
+<html>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ramda/0.28.0/ramda.js"></script>
+    <script>
+        function api()
+        {
+            
+            return [
+                {
+                    name : 'TK',
+                    age : 39
+                }
+            ];
+            
+           //return [];
+        }
+        const firstElementLen = R.lensIndex(0);
+        const nameLen = R.lensProp('name');
+
+        const composeLens = R.compose(firstElementLen,nameLen);
+        let obj = api();
+        console.log('Obj ',obj);
+        console.log('R.view ',R.view(nameLen,R.view(firstElementLen,obj)));
+        console.log('Pipe ',composeLens);
+        console.log('composeLens ',R.view(composeLens,obj));
+    </script>
+</html>
