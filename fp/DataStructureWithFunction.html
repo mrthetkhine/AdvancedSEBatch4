@@ -1,0 +1,78 @@
+<html>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ramda/0.28.0/ramda.js"></script>
+    <script>
+        function pair(left,right)
+        {
+            return function(destructuredPair)
+            {
+                return destructuredPair(left,right);
+            }
+        }
+        const first =(a,b)=>a;
+        const second = (a,b)=>b;
+
+        let tuple = pair('first','second');
+        console.log('First value ',tuple(first));
+        console.log('Second value ',tuple(second));
+
+        function list(head,tail)
+        {
+            return function(destructuredNode,_)
+            {
+                return destructuredNode(head,tail);
+            }
+        }
+        function nil(_,destructuredNil)
+        {
+            return destructuredNil();
+        }
+        function head(list)
+        {
+            return list(function(h,_)
+            {
+                return h;
+            },function()
+            {
+                throw new Error('Empty list have no head');
+            })
+        }
+        function tail(list)
+        {
+            return list(function(_,tails)
+            {
+                return tails;
+            },function()
+            {
+                throw new Error('Empty list have no head');
+            })
+        }
+        const list1 = list(1,list(2,list(3,nil)));
+        console.log('List1 ',list1);
+        console.log('head ',head(list1));
+       
+
+        function toArray(list)
+        {
+            return list(function(head,tail)
+            {
+                return [head].concat(toArray(tail));
+            },function()
+            {
+                return [];
+            });
+        }
+        console.log('tail ',toArray(tail(list1)));
+        function concat(first,second)
+        {
+            return first(function(head,tail){
+                return list(head,concat(tail,second));
+            },function()
+            {
+                return second;
+            })
+        }
+        const list2 = list(4,list(5,list(6,nil)));
+        const list3 = concat(list1,list2);
+        console.log('List3 ',toArray(list3));
+    </script>
+</html>

@@ -1,0 +1,28 @@
+<html>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ramda/0.28.0/ramda.js"></script>
+    <script>
+        const author = {
+                user: "fkereki",
+                name: {
+                    first: "Federico",
+                    middle: "",
+                    last: "Kereki"
+                }, books: 
+                [
+                    { name: "GWT", year: 2010 },
+                    { name: "FP", year: 2017 },
+                    { name: "CB", year: 2018 }
+                ]
+            };
+            const getFieldP = attr=>obj =>
+                obj && attr in obj ? obj[attr] : undefined;
+            const setFieldP = attr=>value=> obj =>
+                obj ? { ...obj, [attr]: value } : { ...obj };
+            let obj2 = setFieldP('address')('ygn')(author);
+            console.log('Obj2 ',obj2);      
+        /*    
+        const pPseudonym = prismProp("pseudonym");
+        console.log(preview(pPseudonym, author).toString());
+        */
+    </script>
+</html>

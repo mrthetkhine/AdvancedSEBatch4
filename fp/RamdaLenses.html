@@ -6,7 +6,7 @@
             socialMedia: {
                 github: 'randycoulman',
                 twitter: '@randycoulman'
-                }
+            }
         }
         
         const nameLens = R.lens(R.prop('name'), R.assoc('name'));
@@ -32,5 +32,9 @@
 
         const nameLens2 = R.lensProp('name');
         console.log('R.view name ',R.view(nameLens2)(person));
+
+        const addressLen = R.lensPath(['address','city']);
+        let person3 = R.set(addressLen,'Ygn',person);
+        console.log('Person 3 ',person3);
     </script>
 </html>
