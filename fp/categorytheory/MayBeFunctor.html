@@ -1,0 +1,43 @@
+<html>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ramda/0.28.0/ramda.js"></script>
+    <script>
+        /*
+        if(str!==null || str!=== undefined)
+        */
+       const toUpper = (str)=>str.toUpperCase();
+       const appendHi = (str)=>str+ ' hi';
+
+       
+       let fun1 = R.pipe(toUpper,appendHi);
+        // console.log('fun1 ', fun1(str));
+
+       const MayBe =(value)=>({
+            map(fn)
+            {
+                return !this.isNothing()
+                        ?MayBe(fn(value))
+                        :MayBe(null);
+            },
+            isNothing()
+            {
+                return  value===null || value===undefined; 
+            },
+            orElse(defaultValue)
+            {
+                return this.isNothing()?MayBe.of(defaultValue):this;
+            },
+            valueOf()
+            {
+                return value;
+            }
+       });
+       MayBe.of = MayBe;
+
+       let str = null;
+       let data = MayBe.of(str)
+                        .map(toUpper)
+                        .map(appendHi)
+                        .orElse('empty');
+        console.log('Data ',data.valueOf());
+    </script>
+</html>

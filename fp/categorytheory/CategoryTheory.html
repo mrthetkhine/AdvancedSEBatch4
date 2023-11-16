@@ -1,0 +1,21 @@
+<html>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ramda/0.28.0/ramda.js"></script>
+    <script>
+        const double = x => x * 2;
+        const inc = x => x + 1;
+        const divBy10 = x=> x /10;
+
+        let fun1 = R.compose(double,R.compose(inc,divBy10));
+        let fun2 = R.compose(R.compose(double,inc),divBy10);
+
+        console.log('Fun1 ',fun1(30));
+        console.log('Fun2 ',fun2(30));
+
+        let fun3 = R.compose(R.identity, inc);
+        let fun4 = R.compose(inc,R.identity);
+
+        console.log('Inc ',inc(10));
+        console.log('Fun3 ',fun3(10));
+        console.log('Fun4 ',fun4(10));
+    </script>
+</html>

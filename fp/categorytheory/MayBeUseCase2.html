@@ -1,0 +1,78 @@
+<html>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ramda/0.28.0/ramda.js"></script>
+    <script>
+    
+        /*
+        if(str!==null || str!=== undefined)
+        */
+       const toUpper = (str)=>str.toUpperCase();
+       const appendHi = (str)=>str+ ' hi';
+
+       
+       let fun1 = R.pipe(toUpper,appendHi);
+        // console.log('fun1 ', fun1(str));
+
+       const Just =(value)=>({
+            map(fn)
+            {
+                return MayBe.of(fn(value));
+            },
+            isNothing()
+            {
+                return  false; 
+            },
+           
+            valueOf()
+            {
+                return value;
+            }
+       });
+       Just.of = Just;
+
+       const Nothing =(value)=>({
+            map(fn)
+            {
+                return this;
+            },
+            isNothing()
+            {
+                return  true; 
+            },
+            valueOf()
+            {
+                return value;
+            }
+       });
+       Nothing.of = Nothing;
+
+       const MayBe =(value)=> value===null || value===undefined 
+                                ? Nothing.of(value)
+                                :Just.of(value);
+       MayBe.of = MayBe;
+
+      let employee = [
+        /*
+        {
+            name: 'Aung Naing',
+            supervisor: {
+                name: 'U Min Aung'
+            }
+        }*/
+      ]; 
+        /*
+      let firstElement  = employee[0];
+      if(firstElement)
+      {
+        let supervisor = employee.supervisor;
+        if(supervisor)
+        {
+            console.log('Name ',supervisor.name);
+        }
+      }
+      */ 
+     MayBe.of(employee[0])
+          .map(emp=>emp.supervisor)
+          .map(supervisor=>supervisor.name)
+          .map(console.log);
+    </script>
+</html>

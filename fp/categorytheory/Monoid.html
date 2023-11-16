@@ -1,0 +1,43 @@
+<html>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ramda/0.28.0/ramda.js"></script>
+    <script>
+        let Sum = {
+            concat:(a,b)=> a + b,
+            empty:()=>0
+        };
+        let Mult = {
+            concat:(a,b)=> a * b,
+            empty:()=>1
+        };
+        let And = {
+            concat:(a,b)=> a && b,
+            empty:()=>true
+        };
+        let Or = {
+            concat:(a,b)=> a || b,
+            empty:()=>false
+        };
+        let Min = {
+            concat:(a,b)=> a > b? b: a,
+            empty:()=>Number.MAX_VALUE
+        };
+        let Max = {
+            concat:(a,b)=> a > b? a : b,
+            empty:()=>Number.MIN_VALUE
+        };
+
+        function fold(arr,monoid)
+        {
+            let accumulator = monoid.empty();
+            for(const ele of arr)
+            {
+                accumulator = monoid.concat(accumulator,ele);
+            }
+            return accumulator;
+        }
+        let arr = [10,-2,20,15];
+        console.log('Sum ',fold(arr,Sum));
+        console.log('Max ',fold(arr,Max));
+        console.log('Min ',fold(arr,Min));
+    </script>
+</html>
