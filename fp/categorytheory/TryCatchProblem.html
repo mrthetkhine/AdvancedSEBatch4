@@ -1,0 +1,44 @@
+<html>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ramda/0.28.0/ramda.js"></script>
+    <script>
+    
+        /*
+       function delayFun()
+       {
+            setTimeout(()=>{
+                console.log('code executed throw error');
+                throw new Error('Bad situation');
+            },3000);
+       }
+       try
+       {
+            delayFun();
+       }
+       catch(err)
+       {
+        console.log('Catch ',err);
+       }
+       console.log('End');
+       */
+      function div(a,b)
+      {
+        return new Promise( (resolve,reject)=>{
+            setTimeout(()=>{
+                console.log('code executed throw error');
+                if( isNaN(a) || isNaN(b))
+                {
+                    reject('Bad situation');
+                }
+                else
+                {
+                    resolve(a/b);
+                }
+                
+            },3000);
+            
+        });
+      }
+      div(10,NaN)
+        .then(data=>console.log('Data ',data),error=> console.log('Error ',error))
+    </script>
+</html>

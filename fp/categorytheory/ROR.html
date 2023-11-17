@@ -1,0 +1,22 @@
+<html>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ramda/0.28.0/ramda.js"></script>
+    <script>
+    
+       Promise.reject(100)
+              .then(x=> x+1,err=>{
+                throw new Error('problem');
+              })
+              .then(x=> x * 2, err=>-1)
+              .then(console.log);
+       /*
+        if(succes)
+        {
+            x=x+1;
+        }
+        else
+        {
+            x = 0;
+        }
+       */         
+    </script>
+</html>

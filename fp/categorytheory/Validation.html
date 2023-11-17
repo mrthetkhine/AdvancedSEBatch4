@@ -1,0 +1,97 @@
+<html>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ramda/0.28.0/ramda.js"></script>
+    <script>
+        let obj = {
+            name : 'MTK',
+            age : 101,
+            email : 'someone@gmail.com'
+        }
+        //name
+        //not empty, min length, max length
+        //email validation
+        // must contain @ sign.
+        const notEmpty = (str)=> (str+'').length >0;
+        const minLength = (len)=> str => str.length >= len;
+        const maxLength = (len)=> str => str.length <= len;
+        const validEmail = (str)=> str.includes('@');
+         /*
+        console.log('notEmpty ',notEmpty(''));
+        console.log('notEmpty hi',notEmpty('hi'));
+        */
+        // minLength(3)
+
+       
+        /*
+        console.log('minLength 3 ', minLength(3)('tk'));
+        console.log('minLength 3 ', minLength(3)('thet'));
+        */
+       
+
+        /*
+        console.log('maxLength 3 ', maxLength(3)('tk'));
+        console.log('maxLength 3 ', maxLength(3)('thet'));
+        */
+        
+        /*
+        console.log('ValidEmail ',validEmail('hello'));
+        console.log('ValidEmail ',validEmail('hello@gmail.com'));
+        */
+       
+       const userNameNotEmpty = (obj) =>notEmpty(obj.name);
+       const userNameMinLength = (obj) => minLength(3)(obj.name);
+       const userNameMaxLength = (obj) => maxLength(5)(obj.name);
+
+       console.log('userNameMinLength ',userNameMinLength(obj));
+       console.log('userNameMinLength ',userNameMinLength({name: 'TK'}));
+
+       console.log('userNameMaxLength ',userNameMaxLength(obj));
+
+       const emailNotEmpty = (obj)=> notEmpty(obj.email);
+       const validUserEmail = (obj)=> validEmail(obj.email);
+
+       const userNameValidator = [userNameNotEmpty,userNameMinLength,userNameMaxLength];
+       const emailValidator = [emailNotEmpty,validUserEmail];
+
+       const And = {
+            concat:(x,y)=> x && y,
+            empty:()=> true
+       };
+       const Or = {
+            concat:(x,y)=> x || y,
+            empty:()=> false
+       };
+       function combinator(monoid)
+       {
+            return function(...validators)
+            {
+                return function(x)
+                {
+                    let accumulator = monoid.empty();
+                    for(const validator of validators)
+                    {
+                        accumulator = monoid.concat(validator(x),accumulator);   
+                    }
+                    return accumulator;
+                }
+            }
+            
+       }
+       const andValidator = combinator(And);
+       const orValidator = combinator(Or);
+
+       const isValidUserName = andValidator(...userNameValidator);
+       console.log('isValidUserName ',isValidUserName({
+            name : 'Thet',
+       }));
+
+       const isValidEmail = andValidator(...emailValidator);
+       console.log('isValidEmail ',isValidEmail({
+            email : '@',
+       }));
+       const validUser  = orValidator(isValidUserName,isValidEmail);
+       console.log('validUser ',validUser({
+            name:'',
+            email : '@',
+       }));
+    </script>
+</html>
