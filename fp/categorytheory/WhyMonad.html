@@ -1,0 +1,16 @@
+<html>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ramda/0.28.0/ramda.js"></script>
+    <script>
+        const inc=(x)=>x+1;
+        let arr = [10,20,30];
+
+        //x=> x
+
+        //Monadic function
+        //x=> Container
+        let result =  arr.flatMap(x=>[x,x*2])
+                         //.flat()   
+                         .map(inc);   
+        console.log(result);
+    </script>
+</html>

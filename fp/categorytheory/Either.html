@@ -20,22 +20,22 @@
         });
     Left.of = Left;
     const Right =(value)=>({
-            value,
-            map(fn)
-            {
-                return Right.of(fn(value));
-            },
-            matchWith(context)
-            {
-                //console.log('Sucess ',context);
-                return context.right(value);
-            },
-            valueOf()
-            {
-                return value;
-            }
-        });
-        Right.of = Right;
+        value,
+        map(fn)
+        {
+            return Right.of(fn(value));
+        },
+        matchWith(context)
+        {
+            //console.log('Sucess ',context);
+            return context.right(value);
+        },
+        valueOf()
+        {
+            return value;
+        }
+    });
+    Right.of = Right;
     
         Left.of(10)
             .map(x=>x+1)

@@ -1,0 +1,67 @@
+<html>
+    <script src="https://cdn.jsdelivr.net/npm/ramda@0.27.1/dist/ramda.min.js"></script>
+    <script>
+     //Ref https://blog.klipse.tech/javascript/2016/08/31/monads-javascript.html
+       
+      /*    
+      const incOne = (x)=> x+ 1;
+      const double = (x) => x * 2;
+      */
+      const compose = (f,g)=> x=> f(g(x));
+      
+      /*
+      const incOne = (x)=>{
+          console.log('Inc One');
+          return x+ 1;
+      } 
+      const double = (x) =>{
+          console.log('Double ');
+          return  x * 2;;
+      };
+      */
+     
+      const incOne = (x)=>{
+          //console.log('Inc One ',x);
+          return [x+ 1,'Inc one'];
+      } 
+      const double = (x) =>{
+          //console.log('Double ',x);
+          return  [x * 2,'Double'];
+      };
+      
+      let [result,log]  = incOne(10);
+      console.log('Result ',result, " Log ",log);
+      /*
+      let problemFun = compose(double, incOne);
+      console.log('Problem ',problemFun(20));
+      */
+     /*
+     function logCompose(f,g)
+     {
+          return function(x)
+          {
+               let [result,log] = g(x);
+               let [result2,log2] = f(result);
+               return [result2,log+","+log2];
+          }
+     }
+    
+     let newFun = logCompose(double,incOne);
+     console.log('newFUnc ',newFun(20));
+     */
+     
+     var bind = (f) => function(tuple) {
+          const [x, log] = tuple,
+               [y, log2] = f(x);
+          return [y, log + log2];
+     };
+     const unit = (x)=> [x,''];
+     newFun = compose(bind(double),bind(incOne));
+
+     //console.log('newFUnc ',newFun(20));
+     
+     newFun = compose(newFun,unit);
+     console.log('newFUnc ',newFun(20));
+     
+    </script>
+</html>

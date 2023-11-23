@@ -1,0 +1,48 @@
+<html>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ramda/0.28.0/ramda.js"></script>
+    <script>
+        const Container =(value)=>({
+            map(fn)
+            {
+                return Container.of(fn(value));
+            },
+            unwrap()
+            {
+                return value;
+            },
+            flatMap(fn)//fn=>Monadic function
+            {
+                return fn(value);
+            },
+            valueOf()
+            {
+                return value;
+            }
+        });
+        Container.of = Container;
+
+        const inc = (x)=>x+1;
+        const double = (x)=>x* 2;
+        const mulBy10 = (x)=>x*10;
+
+        const pipe = (f,g)=>x=> g(f(x));
+
+        Container.of(10)
+                 .flatMap(x=>Container.of(x*2))//Container(Container(20))
+                 .map(inc)
+                 .map(console.log);
+        /*
+        bind(unit(x), f) ≡ f(x)
+        bind(m, unit) ≡ m
+        bind(bind(m, f), g) ≡ bind(m, x ⇒ bind(f(x), g))
+        */         
+        //law 1
+        console.log( Container.of(3)
+                .flatMap(inc)=== inc(3));
+        //law 2
+        console.log( Container.of(3)
+                .flatMap(inc)=== inc(3));       
+                
+          
+    </script>
+</html>

@@ -1,0 +1,179 @@
+<html>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ramda/0.28.0/ramda.js"></script>
+    
+    <script>
+        const Left =(value)=>({
+            value,
+            map(fn)
+            {
+                return Left.of(value);
+            },
+            isLeft()
+            {
+                return true;
+            },
+            matchWith(context)
+            {
+                //console.log('Failure ',context);
+                return context.left(value);
+            },
+            and(another)
+            {
+                return another.isLeft()
+                            ?Left.of([...value,...another.valueOf()])
+                            :this;
+            },
+            or(another)
+            {
+                return another.isLeft()
+                            ?Left.of([...value,...another.valueOf()])
+                            :another;
+            },
+            valueOf()
+            {
+                return value;
+            }
+        });
+        Left.of = Left;
+        const Right =(value)=>({
+            value,
+            map(fn)
+            {
+                return Right.of(fn(value));
+            },
+            isLeft()
+            {
+                return false;
+            },
+            matchWith(context)
+            {
+                //console.log('Sucess ',context);
+                return context.right(value);
+            },
+            and(another)
+            {
+                return another.isLeft()
+                            ?another
+                            :this;
+            },
+            or(another)
+            {
+                return another;
+            },
+            valueOf()
+            {
+                return value;
+            }
+        });
+        Right.of = Right;
+
+        /*
+        Left.of(['Username invalid'])
+            .and(Left.of('User email invlaid'))
+            .matchWith({
+                left:(error)=>console.log('Errors ',error),
+                right:(data)=>console.log('Validation ok ',data),
+        });
+        Left.of(['Username invalid'])
+            .and(Right.of({}))
+            .matchWith({
+                left:(error)=>console.log('Errors ',error),
+                right:(data)=>console.log('Validation ok ',data),
+        });
+        Right.of({})
+            .and(Right.of({}))
+            .matchWith({
+                left:(error)=>console.log('Errors ',error),
+                right:(data)=>console.log('Validation ok ',data),
+        });
+        Right.of({})
+            .and(Left.of(['Username invalid']))
+            .matchWith({
+                left:(error)=>console.log('Errors ',error),
+                right:(data)=>console.log('Validation ok ',data),
+        });
+        */
+        let obj = {
+            name : 'MTK',
+            age : 101,
+            email : 'someone@gmail.com'
+        }
+        //name
+        //not empty, min length, max length
+        //email validation
+        // must contain @ sign.
+        const notEmpty = (str)=> (str+'').length >0;
+        const minLength = (len)=> str => str.length >= len;
+        const maxLength = (len)=> str => str.length <= len;
+        const validEmail = (str)=> str.includes('@');
+        
+       
+       const userNameNotEmpty = (obj) =>notEmpty(obj.name);
+       const userNameMinLength = (obj) => minLength(3)(obj.name);
+       const userNameMaxLength = (obj) => maxLength(5)(obj.name);
+       const emailNotEmpty = (obj)=> notEmpty(obj.email);
+       const validUserEmail = (obj)=> validEmail(obj.email);
+     
+       const booleanToEither = (fn,message)=>obj=>{
+            return fn(obj)
+                        ?Right.of(obj)
+                        :Left.of([message])
+       };
+
+       const userNameNotEmptyV2 = booleanToEither(userNameNotEmpty,'User name should not be empty');
+       const userNameMinLengthV2 = booleanToEither(userNameMinLength,'Username should not less than 3');
+       const userNameMaxLengthV2 = booleanToEither(userNameMaxLength,'Username should be at greater than 5 ');
+       const emailNotEmptyV2 = booleanToEither(emailNotEmpty,'Email should not be empty');
+       const validUserEmailV2 = booleanToEither(validUserEmail,'Email should contain @ character');
+
+       userNameMinLengthV2({
+            name : 'ea'
+       }).matchWith({
+        left:(error)=>console.log('Validation Error ',error),
+        right:(data)=> console.log('Validation success ',data)
+       })
+       /*
+       const userNameValidator = [userNameNotEmpty,userNameMinLength,userNameMaxLength];
+       const emailValidator = [emailNotEmpty,validUserEmail];
+       */
+       function andCombinar(...validators)
+       {
+            return function(x)
+            {
+                let accumulator = Right.of(x);
+                for(const validator of validators)
+                {
+                    accumulator = accumulator.and(validator(x));   
+                }
+                return accumulator;
+            }
+       }
+       function orCombinar(...validators)
+       {
+            return function(x)
+            {
+                let accumulator = Left.of([]);
+                for(const validator of validators)
+                {
+                    accumulator = accumulator.or(validator(x));   
+                }
+                return accumulator;
+            }
+       }
+       const userNameValidator = andCombinar(userNameNotEmptyV2,userNameMinLengthV2,userNameMaxLengthV2);
+       userNameValidator({
+            name:'eeeeage'
+       }).matchWith({
+        left:(error)=>console.log('Errors ',error),
+        right:(data)=>console.log('Validation ok ',data),
+       });
+       const userNameOrEmailNotEmpty = orCombinar(userNameNotEmptyV2,emailNotEmptyV2);
+       userNameOrEmailNotEmpty({
+        name:'',
+        email:''
+       }).matchWith({
+        left:(error)=>console.log('Or Errors ',error),
+        right:(data)=>console.log('Or Validation ok ',data),
+       });
+    </script>
+</html>
