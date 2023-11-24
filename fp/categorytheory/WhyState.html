@@ -1,0 +1,53 @@
+<html>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ramda/0.28.0/ramda.js"></script>
+    <script>
+        /*
+       class Stack
+       {
+            constructor()
+            {
+                this.stack = [];
+            }
+            push(element)
+            {
+                this.stack.push(element);
+            }
+            pop()
+            {
+                return this.stack.pop();
+            }
+       }
+       let st1 = new Stack();
+       st1.push(10);
+       st1.push(20);
+       console.log('Pop ',st1.pop());
+       */
+      /*
+      function push(element,stack)
+      {
+        stack.push(element);
+      }
+      function pop(stack)
+      {
+        return stack.pop();
+      }
+      let stack = [];
+      push(10,stack);
+      push(20,stack);
+      console.log(pop(stack));    
+      */
+      function push(element,stack)
+      {
+        return [undefined,[...stack,element]]
+      }
+      function pop(stack)
+      {
+        return [stack[stack.length-1],stack.slice(0,stack.length-1)];
+      }
+      let stack = [];
+      let [value,nextstack] = push(10,stack);
+      let [value2,nextstack2]  = push(20,nextstack);
+      let [value3,nextstack3] = pop(nextstack2);
+      console.log('Value ',value3, ' Stack ',nextstack3);
+    </script>
+</html>

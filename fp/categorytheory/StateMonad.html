@@ -1,0 +1,68 @@
+<html>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ramda/0.28.0/ramda.js"></script>
+    <script>
+       function push(element)
+        {
+            return function(stack)
+            {
+                return [undefined,[...stack,element]];
+            }
+            
+        }
+        function pop()
+        {
+            return function(stack)
+            {
+                return [stack[stack.length-1],stack.slice(0,stack.length-1)];
+            }   
+        }
+        //sts=state=>[value,state]
+        //push(10)
+        //pop()
+        const State = (st)=>({
+            map(fn)//fn=state=>[value,state]
+            {
+                return State((state)=>{
+                    //console.log('State ',state);
+                    const [value,nextState] =st(state);
+                    //console.log('Value ',value, ' next state',nextState);
+                    return fn(nextState);
+                });
+            },
+            runWith(state)
+            {
+                return st(state);//push(10)([])
+            }
+        });
+        State.of = State;
+
+        /*
+        //State(push(10))
+             return State((state)=>{
+                    const [value,nextState] =push(10)([]);
+                    return push(20)(nextState);
+                });
+        */
+        let sequence = (...operations)=>initalState=>{
+            return operations.reduce((prevState,op)=>{
+                const [value,nextState] = op(prevState);
+                return nextState;
+            },initalState);
+        };
+        let computation = sequence(
+                        push(20),
+                        push(30),
+                        pop()
+                        );
+        console.log('Computation ',computation([]));
+        let stack = State.of(push(10))
+                        /*.map(push(20))
+                        .map(push(30))
+                        .map(pop())
+                        .map(push(50))
+                        */
+                        .map(computation)
+                        .runWith([]);
+        console.log('Stack ',stack);
+    </script>
+</html>
