@@ -20,24 +20,33 @@ let plays = {
 "as-like": {"name": "As You Like It", "type": "comedy"},
 "othello": {"name": "Othello", "type": "tragedy"}
 };
+function getFormat()
+{
+    return new Intl.NumberFormat("en-US",
+    {
+        style: "currency", currency: "USD",
+        minimumFractionDigits: 2
+    }).format;
+}
+
 function statement (invoice, plays) {
     let totalAmount = 0;
     let volumeCredits = 0;
     let result = `Statement for ${invoice.customer}\n`;
-    const format = new Intl.NumberFormat("en-US",
-        { style: "currency", currency: "USD",
-            minimumFractionDigits: 2 }).format;
+    
+    const format = getFormat();
 
     for (let perf of invoice.performances) {
         const play = playFor(plays, perf);
-        var thisAmount  = amountFor(play, perf);
-        // add volume credits
-        volumeCredits += Math.max(perf.audience - 30, 0);
-        // add extra credit for every ten comedy attendees
-        if ("comedy" === play.type) volumeCredits += Math.floor(perf.audience / 5);
+        var thisAmount  = amountFor(play, perf);   
         // print line for this order
         result += ` ${play.name}: ${format(thisAmount/100)} (${perf.audience} seats)\n`;
         totalAmount += thisAmount;
+    }
+    for(let perf of invoice.performances) {
+        const play = playFor(plays, perf);
+        // add volume credits
+        volumeCredits += getVolumeCredit( play, perf);
     }
     result += `Amount owed is ${format(totalAmount/100)}\n`;
     result += `You earned ${volumeCredits} credits\n`;
@@ -46,6 +55,14 @@ function statement (invoice, plays) {
 
 let result = statement(invoices,plays);
 console.log(result);
+
+function getVolumeCredit(play, perf) {
+    let volumeCredits =0;
+    volumeCredits += Math.max(perf.audience - 30, 0);
+    // add extra credit for every ten comedy attendees
+    if ("comedy" === play.type) volumeCredits += Math.floor(perf.audience / 5);
+    return volumeCredits;
+}
 
 function playFor(plays, perf) {
     return plays[perf.playID];
