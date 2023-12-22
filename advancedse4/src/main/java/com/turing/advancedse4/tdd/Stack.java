@@ -1,5 +1,7 @@
 package com.turing.advancedse4.tdd;
 
+import java.util.Random;
+
 public class Stack {
 
 	public static final String STACK_UNDERFLOW_MESSAGE = "Stack is underflow";
@@ -27,5 +29,17 @@ public class Stack {
 	{
 		return this.top;
 	}
-
+	public static void main(String[]args)
+	{
+		Random random = new Random(123);
+		System.out.println("Random.next "+random.nextInt());
+		System.out.println("Random.next "+random.nextInt());
+		System.out.println("Random.next "+random.nextInt());
+		
+		random = new Random(123);
+		System.out.println("Random.next "+random.nextInt());
+		System.out.println("Random.next "+random.nextInt());
+		System.out.println("Random.next "+random.nextInt());
+		
+	}
 }
