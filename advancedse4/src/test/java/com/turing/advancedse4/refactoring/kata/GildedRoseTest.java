@@ -9,6 +9,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static com.turing.advancedse4.refactoring.kata.gliderose.GildedRose.*;
 class GildedRoseTest {
 
+	
     @Test
     void testSimpleItem() {
         Item[] items = new Item[] { 
@@ -58,6 +59,7 @@ class GildedRoseTest {
         assertEquals(4, app.items[2].sellIn);
         assertEquals(50, app.items[2].quality);
     }
+    
     @Test
     void testAgeBrie() {
         Item[] items = new Item[] { 
