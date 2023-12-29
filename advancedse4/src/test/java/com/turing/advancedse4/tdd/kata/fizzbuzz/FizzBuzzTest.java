@@ -4,14 +4,58 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.function.Predicate;
 
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class FizzBuzzTest {
+	Printer printer ;
+	FizzBuzz fizzBuzz;
+	
+	@BeforeEach
+	public void setUp()
+	{
+		printer = new MockPrinter();
+		fizzBuzz = new FizzBuzz(printer);
+	}
+	@Test
+	public void testNormalNumber()
+	{
+		String result = fizzBuzz.generate(1);
+		assertEquals("1",result);
+		
+		result = fizzBuzz.generate(2);
+		assertEquals("2",result);
+	}
+	@Test
+	public void testNumberDivisibleByThree()
+	{
+		String result = fizzBuzz.generate(3);
+		assertEquals(FizzBuzz.FIZZ,result);
+		
+	}
+	@Test
+	public void testNumberDivisibleByFive()
+	{
+		String result = fizzBuzz.generate(5);
+		assertEquals(FizzBuzz.BUZZ,result);
+		
+		result = fizzBuzz.generate(10);
+		assertEquals(FizzBuzz.BUZZ,result);
+		
+	}
+	@Test
+	public void testNumberDivisibleByBothThreeAndFive()
+	{
+		String result = fizzBuzz.generate(15);
+		assertEquals("FizzBuzz",result);
+		
+	
+	}
+	/*
 	@Test
 	public void test1To100(){
-		//Printer printer = new ConsolePrinter();
-		Printer printer = new MockPrinter();
-		FizzBuzz fizzBuzz = new FizzBuzz(printer);
+	
 		fizzBuzz.generate();
 		
 		String expected = "";
@@ -43,5 +87,6 @@ public class FizzBuzzTest {
 		System.out.println(isDivisbleByBoth3AndSix.test(3));
 		System.out.println(isDivisbleByBoth3AndSix.test(6));
 	}
+	*/
 	
 }
